@@ -10,11 +10,7 @@
   "scripts": {
     "test": "node test | tap-spec"
   },
-  "author": {
-    "name": "Hugh Kennedy",
-    "email": "hughskennedy@gmail.com",
-    "url": "http://hughsk.io/"
-  },
+  "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughsk.io/)",
   "dependencies": {
     "events": "^1.0.2",
     "findup": "^0.1.5",
@@ -28,10 +24,6 @@
     "tap-spec": "^0.2.1",
     "tape": "^2.14.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/hughsk/scoped-bulk.git"
-  },
   "keywords": [
     "scoped",
     "package",
@@ -44,8 +36,15 @@
     "run",
     "command"
   ],
-  "homepage": "https://github.com/hughsk/scoped-bulk",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timoxley/bulk.git"
+  },
   "bugs": {
-    "url": "https://github.com/hughsk/scoped-bulk/issues"
-  }
+    "url": "https://github.com/timoxley/bulk/issues"
+  },
+  "homepage": "https://github.com/timoxley/bulk"
 }
