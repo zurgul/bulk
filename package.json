@@ -1,11 +1,11 @@
 {
-  "name": "scoped-bulk",
-  "version": "1.0.1",
-  "description": "Run a command from every installed npm package under a certain scope",
+  "name": "bulk",
+  "version": "1.0.0",
+  "description": "Run a command from every installed npm package under a certain directory",
   "main": "index.js",
   "license": "MIT",
   "bin": {
-    "scoped-bulk": "cli.js"
+    "bulk": "cli.js"
   },
   "scripts": {
     "test": "node test | tap-spec"

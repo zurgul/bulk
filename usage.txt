@@ -1,2 +1,2 @@
 Usage:
-  scoped-bulk <namespace> <command...>
+  bulk <dirname> <command...>

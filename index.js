@@ -9,8 +9,8 @@ var fs       = require('fs')
 
 module.exports = bulk
 
-function bulk(namespace, command, dirname, done) {
-  dirname = path.resolve(dirname)
+function bulk(dirname, command, done) {
+  dirname = path.resolve(process.cwd(), dirname)
   done    = once(done)
 
   var emitter = new Emitter
@@ -25,20 +25,20 @@ function bulk(namespace, command, dirname, done) {
   function found(err, root) {
     if (err) return done(err)
 
-    var node_modules = path.join(
-      root = path.resolve(root || dirname)
-    , 'node_modules', '@' + namespace)
+    //var node_modules = path.join(
+      //root = path.resolve(root || dirname)
+    //, 'node_modules', '@' + namespace)
 
-    fs.exists(node_modules, function(exists) {
+    fs.exists(dirname, function(exists) {
       if (!exists) return done(new Error(
-        'Package scope "@'+namespace+'" does not exist'
+        'Directory "'+dirname+'" does not exist'
       ))
 
-      fs.readdir(node_modules, function(err, children) {
+      fs.readdir(dirname, function(err, children) {
         if (err) return done(err)
 
         children = children.map(function(child) {
-          return path.join(node_modules, child)
+          return path.join(dirname, child)
         })
 
         doBulk(children)

@@ -28,10 +28,10 @@ var name = cmd.shift()
 argv = minimist(argv)
 cmd  = quote(cmd)
 
-if (!name) return bail('Please specify a package namespace to use.')
+if (!name) return bail('Please specify a directory to use.')
 if (!cmd.trim()) return bail('Please specify a command to run.')
 
-bulk(name, cmd, cwd, function(err) {
+bulk(name, cmd, function(err) {
   if (err) throw err
 }).on('spawn', function(CWD, proc) {
   console.error()

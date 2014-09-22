@@ -1,25 +1,26 @@
-# scoped-bulk [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+# bulk [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Run a command from every installed npm package under a certain scope. Useful
-in combination with [district](http://github.com/hughsk/district).
+Run a command from every installed npm package under a certain directory.
+
+This is a more generalised fork of [hughsk/scoped-bulk](http://github.com/hughsk/scoped-bulk)
 
 ## CLI Usage
 
-[![NPM](https://nodei.co/npm/scoped-bulk.png)](https://nodei.co/npm/scoped-bulk/)
+[![NPM](https://nodei.co/npm/bulk.png)](https://nodei.co/npm/bulk/)
 
 ``` bash
 Usage:
-  scoped-bulk <namespace> <command...>
+  bulk <dirname> <command...>
 ```
 
-Where `<namespace>` is the package namespace to use, and `<command...>` is a
-command to run from your shell in each scoped package.
+Where `<dirname>` is a folder full of packages, and `<command...>` is a
+command to run from your shell in each package.
 
 For example, running the following in your project root might yield something
 like this:
 
 ``` bash
-scoped-bulk scoped ls -A
+bulk node_modules/@scoped ls -A
 ```
 
 ``` bash
@@ -48,9 +49,9 @@ You can use this, for example, to install the dependencies of locally scoped
 modules:
 
 ``` bash
-scoped-bulk scoped npm install --production
+bulk node_modules/@scoped npm install --production
 ```
 
 ## License
 
-MIT. See [LICENSE.md](http://github.com/hughsk/scoped-bulk/blob/master/LICENSE.md) for details.
+MIT. See [LICENSE.md](http://github.com/hughsk/bulk/blob/master/LICENSE.md) for details.
