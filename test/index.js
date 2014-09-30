@@ -5,7 +5,7 @@ var bl   = require('bl')
 test('basic case', function(t) {
   t.plan(5)
 
-  bulk(__dirname + '/node_modules/@scoped', 'pwd', function(err) {
+  bulk(__dirname + '/node_modules/@scoped/', 'pwd', function(err) {
     t.ifError(err, 'completed without error')
   }).on('spawn', function(cwd, proc) {
     proc.stdout.pipe(bl(function(err, data) {

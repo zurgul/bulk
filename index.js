@@ -2,7 +2,6 @@ var spawn    = require('child_process').spawn
 var parse    = require('shell-quote').parse
 var map      = require('map-limit')
 var Emitter  = require('events/')
-var findup   = require('findup')
 var path     = require('path')
 var once     = require('once')
 var fs       = require('fs')
@@ -18,33 +17,22 @@ function bulk(dirname, command, done) {
   var cmd = arg.shift()
   var env = process.env
 
-  findup(dirname, 'package.json', found)
 
-  return emitter
+  fs.exists(dirname, function(exists) {
+    if (!exists) return done(new Error(
+      'Directory "'+dirname+'" does not exist'
+    ))
 
-  function found(err, root) {
-    if (err) return done(err)
+    fs.readdir(dirname, function(err, children) {
+      if (err) return done(err)
 
-    //var node_modules = path.join(
-      //root = path.resolve(root || dirname)
-    //, 'node_modules', '@' + namespace)
-
-    fs.exists(dirname, function(exists) {
-      if (!exists) return done(new Error(
-        'Directory "'+dirname+'" does not exist'
-      ))
-
-      fs.readdir(dirname, function(err, children) {
-        if (err) return done(err)
-
-        children = children.map(function(child) {
-          return path.join(dirname, child)
-        })
-
-        doBulk(children)
+      children = children.map(function(child) {
+        return path.join(dirname, child)
       })
+
+      doBulk(children)
     })
-  }
+  })
 
   function doBulk(packages) {
     map(packages, 1, function(package, next) {
@@ -64,4 +52,6 @@ function bulk(dirname, command, done) {
       }, 5)
     }, done)
   }
+
+  return emitter
 }
