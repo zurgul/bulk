@@ -1,37 +1,25 @@
 #!/usr/bin/env node
 
-var quote    = require('shell-quote').quote
+var quote = require('shell-quote').quote
 var minimist = require('minimist')
-var path     = require('path')
-var bulk     = require('./')
-var fs       = require('fs')
+var path = require('path')
+var bulk = require('./')
+var map = require('map-limit')
+var fs = require('fs')
 
-var cwd  = process.cwd()
-var argv = []
-var cmd  = []
+var cwd = process.cwd()
+var argv = minimist(process.argv.slice(2))
+cmd = quote(argv._.pop())
+var targets = argv._.slice()
 
-for (var i = 2; i < process.argv.length; i++) {
-  var arg = process.argv[i]
-  if (arg.charAt(0) === '-') {
-    argv.push(arg)
-    continue
-  }
-
-  cmd = process.argv.slice(i)
-  break
-}
-
-// Currently extracting command-line arguments
-// in the hopes of avoiding backwards-compatibility
-// issues later
-var name = cmd.shift()
-argv = minimist(argv)
-cmd  = quote(cmd)
-
-if (!name) return bail('Please specify a directory to use.')
+if (!targets.length) return bail('Please specify targets to use.')
 if (!cmd.trim()) return bail('Please specify a command to run.')
 
-bulk(name, cmd, function(err) {
+targets = targets.reduce(function(targets, target) {
+  return targets.concat(glob(target))
+})
+
+bulk(targets, cmd, function(err) {
   if (err) throw err
 }).on('spawn', function(CWD, proc) {
   console.error()
