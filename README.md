@@ -1,6 +1,8 @@
 # bulk [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Run a command from every installed npm package under a certain directory.
+Run a command in every directory within a directory.
+
+End goal of this package is to make a more intuitive, simpler alternative to find/grep + xargs.
 
 This is a more generalised fork of [hughsk/scoped-bulk](http://github.com/hughsk/scoped-bulk)
 
@@ -16,39 +18,25 @@ Usage:
 Where `<dirname>` is a folder full of packages, and `<command...>` is a
 command to run from your shell in each package.
 
-For example, running the following in your project root might yield something
-like this:
+## Examples
 
-``` bash
-bulk node_modules/@scoped ls -A
+#### Run `npm install` in every folder inside ./lib
+
+```bash
+bulk lib npm install 
 ```
 
-``` bash
-node_modules/@scoped/1
-> ls -A
+#### Clean all node_modules from children
 
-.gitkeep
+This works well for cleaning dependencies out of symlinked packages, and allows for rededuplication without doing a full install.
 
-node_modules/@scoped/2
-> ls -A
-
-.gitkeep
-
-node_modules/@scoped/3
-> ls -A
-
-.gitkeep
-
-node_modules/@scoped/4
-> ls -A
-
-.gitkeep
+```bash
+bulk node_modules "rm -rf ."
 ```
 
-You can use this, for example, to install the dependencies of locally scoped
-modules:
+#### Install the dependencies of locally scoped modules:
 
-``` bash
+```bash
 bulk node_modules/@scoped npm install --production
 ```
 
