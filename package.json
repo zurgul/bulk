@@ -23,7 +23,6 @@
     "tape": "^2.14.0"
   },
   "keywords": [
-    "scoped",
     "package",
     "module",
     "npm",
