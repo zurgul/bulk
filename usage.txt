@@ -1,2 +1,3 @@
 Usage:
-  bulk <dirname> <command...>
+  echo ./* | bulk -c "<command...>"
+  bulk -c "<command...>" ./*

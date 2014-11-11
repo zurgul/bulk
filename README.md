@@ -12,18 +12,18 @@ This is a more generalised fork of [hughsk/scoped-bulk](http://github.com/hughsk
 
 ``` bash
 Usage:
-  bulk <dirname> <command...>
+  echo ./* | bulk -c "<command...>"
+  bulk -c "<command...>" ./*
 ```
 
-Where `<dirname>` is a folder full of packages, and `<command...>` is a
-command to run from your shell in each package.
+For example, running the following in your project root might yield something
+like this:
 
-## Examples
-
-#### Run `npm install` in every folder inside ./lib
-
-```bash
-bulk lib npm install 
+``` bash
+> ls -A | bulk -c "pwd"
+/Users/timoxley/Projects/bulk/.git
+/Users/timoxley/Projects/bulk/node_modules
+/Users/timoxley/Projects/bulk/test
 ```
 
 #### Clean all node_modules from children
@@ -31,15 +31,17 @@ bulk lib npm install
 This works well for cleaning dependencies out of symlinked packages, and allows for rededuplication without doing a full install.
 
 ```bash
-bulk node_modules "rm -rf ."
+bulk  -c "rm -rf ." node_modules/*
 ```
 
 #### Install the dependencies of locally scoped modules:
+You can use this, for example, to install the dependencies of locally scoped
+modules:
 
-```bash
-bulk node_modules/@scoped npm install --production
+``` bash
+echo node_modules/@scoped/* | bulk -c "npm install --production"
 ```
 
 ## License
 
-MIT. See [LICENSE.md](http://github.com/hughsk/bulk/blob/master/LICENSE.md) for details.
+MIT. See [LICENSE.md](http://github.com/timoxley/bulk/blob/master/LICENSE.md) for details.

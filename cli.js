@@ -1,54 +1,17 @@
 #!/usr/bin/env node
 
-var quote    = require('shell-quote').quote
+"use strict"
+
 var minimist = require('minimist')
-var path     = require('path')
-var bulk     = require('./')
-var fs       = require('fs')
+var spawn = require('child_process').spawn
+var bulk = require.resolve('./bulk')
 
-var cwd  = process.cwd()
-var argv = []
-var cmd  = []
+var argv = minimist(process.argv.slice(2))
 
-for (var i = 2; i < process.argv.length; i++) {
-  var arg = process.argv[i]
-  if (arg.charAt(0) === '-') {
-    argv.push(arg)
-    continue
-  }
+if (!argv._.length) return spawn(bulk, process.argv.slice(2), {stdio: 'inherit'})
 
-  cmd = process.argv.slice(i)
-  break
-}
-
-// Currently extracting command-line arguments
-// in the hopes of avoiding backwards-compatibility
-// issues later
-var name = cmd.shift()
-argv = minimist(argv)
-cmd  = quote(cmd)
-
-if (!name) return bail('Please specify a directory to use.')
-if (!cmd.trim()) return bail('Please specify a command to run.')
-
-bulk(name, cmd, function(err) {
-  if (err) throw err
-}).on('spawn', function(CWD, proc) {
-  console.error()
-  console.error(path.relative(cwd, CWD))
-  console.error('> ' + cmd)
-  console.error()
-
-  proc.stdout.pipe(process.stdout)
-  proc.stderr.pipe(process.stderr)
-})
-
-function bail(err) {
-  console.error()
-  console.error(err)
-  console.error()
-
-  fs.createReadStream(path.join(__dirname, 'usage.txt'))
-    .once('close', function() { console.error() })
-    .pipe(process.stderr)
-}
+// assume dirs passed as args after -c
+var child = spawn(bulk, process.argv.slice(2))
+child.stdout.pipe(process.stdout)
+child.stderr.pipe(process.stderr)
+child.stdin.end(argv._.join(' '))

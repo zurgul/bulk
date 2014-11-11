@@ -1,57 +1,36 @@
-var spawn    = require('child_process').spawn
-var parse    = require('shell-quote').parse
-var map      = require('map-limit')
-var Emitter  = require('events/')
-var path     = require('path')
-var once     = require('once')
-var fs       = require('fs')
+"use strict"
 
-module.exports = bulk
+var cp = require('child_process')
+var spawn = cp.spawn
+var exec = cp.exec
 
-function bulk(dirname, command, done) {
-  dirname = path.resolve(process.cwd(), dirname)
-  done    = once(done)
+module.exports = function() {
+  if (arguments.length >= 3) return bulkExec.apply(this, arguments)
+  return bulkSpawn.apply(this, arguments)
+}
 
-  var emitter = new Emitter
-  var arg = parse(command)
-  var cmd = arg.shift()
-  var env = process.env
+module.exports.exec = bulkExec
+module.exports.spawn = bulkSpawn
+module.exports.cmd = require.resolve('./cli')
 
-
-  fs.exists(dirname, function(exists) {
-    if (!exists) return done(new Error(
-      'Directory "'+dirname+'" does not exist'
-    ))
-
-    fs.readdir(dirname, function(err, children) {
-      if (err) return done(err)
-
-      children = children.map(function(child) {
-        return path.join(dirname, child)
-      })
-
-      doBulk(children)
-    })
-  })
-
-  function doBulk(packages) {
-    map(packages, 1, function(package, next) {
-      setTimeout(function() {
-        var proc = spawn(cmd, arg, {
-            cwd: package
-          , env: env
-        }).once('exit', function(code) {
-          if (code === 0) return next()
-
-          return next(
-            new Error('Invalid error code: ' + code)
-          )
-        })
-
-        emitter.emit('spawn', package, proc)
-      }, 5)
-    }, done)
+function bulkExec(dirs, cmd, opts, fn) {
+  // opts is optional
+  if (arguments.length === 3) {
+    fn = opts
+    opts = {}
+    return bulkExec(dirs, cmd, opts, fn)
   }
+  if (!cmd) throw new Error('command required: ' + cmd)
+  opts = opts || {}
+  var execCmd = "echo " + dirs.join(' ') + ' | ' + require.resolve('./bulk')
+  if ('onlyDirs' in opts && !opts.onlyDirs) execCmd += ' --no-only-dirs'
+  return exec(execCmd + ' -c ' + cmd, opts, fn)
+}
 
-  return emitter
+function bulkSpawn(cmd, opts) {
+  if (!cmd) throw new Error('command required: ' + cmd)
+  // opts is optional
+  opts = opts || {}
+  opts.stdio = 'pipe'
+  return spawn(require.resolve('./bulk'), ['-c', cmd], opts)
 }
