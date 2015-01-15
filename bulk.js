@@ -10,9 +10,10 @@ var parse = require('shell-quote').parse
 var fs = require('fs')
 
 var argv = minimist(process.argv, {
-  boolean: ['chdir'],
-  default: { 'chdir': true },
+  boolean: ['bail', 'chdir'],
+  default: { 'bail': false, 'chdir': true },
   alias: {
+    b: 'bail',
     d: 'chdir',
     c: 'command'
   }
@@ -59,6 +60,7 @@ function execSeries(argv) {
 
     spawn(cmd, args, opts)
     .on('error', function(err) {
+      if (argv.bail) return process.exit(1)
       next(err)
       next = noop
     })
