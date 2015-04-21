@@ -1,6 +1,6 @@
 {
   "name": "bulk",
-  "version": "2.0.0-alpha-0",
+  "version": "2.0.0",
   "description": "Run a command from every installed npm package under a certain directory",
   "main": "index.js",
   "license": "MIT",
