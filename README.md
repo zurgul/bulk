@@ -42,6 +42,13 @@ modules:
 echo node_modules/@scoped/* | bulk -c "npm install --production"
 ```
 
+#### Exit any time a nonzero exit code occurs
+Runs all commands but exits on the first nonzero exit code.
+
+``` bash
+linklocal list -r | bulk -c 'npm test' -e
+```
+
 ## License
 
 MIT. See [LICENSE.md](http://github.com/timoxley/bulk/blob/master/LICENSE.md) for details.
