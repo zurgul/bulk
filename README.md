@@ -13,7 +13,6 @@ This is a more generalised fork of [hughsk/scoped-bulk](http://github.com/hughsk
 
 ## CLI Usage
 
-
 ``` bash
 Usage:
   echo ./* | bulk -c "<command...>"
