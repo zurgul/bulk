@@ -12,15 +12,15 @@
   },
   "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughsk.io/)",
   "dependencies": {
-    "minimist": "^1.1.0",
-    "shell-quote": "^1.4.2",
-    "split": "~0.3.1",
-    "through2": "~0.6.3"
+    "minimist": "^1.2.0",
+    "shell-quote": "^1.6.1",
+    "split": "~1.0.0",
+    "through2": "~2.0.1"
   },
   "devDependencies": {
-    "bl": "^0.9.3",
-    "tap-spec": "^0.2.1",
-    "tape": "^2.14.0"
+    "bl": "^1.1.2",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.0"
   },
   "keywords": [
     "package",
