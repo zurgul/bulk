@@ -14,8 +14,8 @@
   "dependencies": {
     "minimist": "^1.2.0",
     "shell-quote": "^1.6.1",
-    "split": "~1.0.0",
-    "through2": "~2.0.1"
+    "split": "^1.0.0",
+    "through2": "^2.0.1"
   },
   "devDependencies": {
     "bl": "^1.1.2",
