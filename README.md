@@ -1,6 +1,11 @@
 # bulk [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Run a command in every directory within a directory.
+### Run a command in every directory within a directory.
+
+[![Build Status](https://travis-ci.org/timoxley/bulk.png?branch=master)](https://travis-ci.org/timoxley/bulk)
+
+[![NPM](https://nodei.co/npm/bulk.png?downloads=true&downloadRank=true)](https://nodei.co/npm-dl/bulk/)
+[![NPM](https://nodei.co/npm-dl/bulk.png?months=3&height=3&chrome)](https://nodei.co/npm/bulk/)
 
 End goal of this package is to make a more intuitive, simpler alternative to find/grep + xargs.
 
@@ -8,7 +13,6 @@ This is a more generalised fork of [hughsk/scoped-bulk](http://github.com/hughsk
 
 ## CLI Usage
 
-[![NPM](https://nodei.co/npm/bulk.png)](https://nodei.co/npm/bulk/)
 
 ``` bash
 Usage:
