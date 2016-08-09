@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-"use strict"
+'use strict'
 
 var split = require('split')
 var through = require('through2')
@@ -10,7 +10,7 @@ var parse = require('shell-quote').parse
 var fs = require('fs')
 
 var argv = minimist(process.argv, {
-  boolean: ['bail', 'chdir', 'exit' ],
+  boolean: [ 'bail', 'chdir', 'exit' ],
   default: { 'bail': false, 'chdir': true, 'exit': false },
   alias: {
     b: 'bail',
@@ -30,13 +30,13 @@ process.stdin
 .pipe(filterDirs(argv))
 .pipe(execSeries(argv))
 
-function filterDirs(argv) {
+function filterDirs (argv) {
   if (!argv.chdir) return through()
 
-  return through(function(item, enc, next) {
+  return through(function (item, enc, next) {
     var self = this
     item = item.toString()
-    fs.stat(item, function(err, stat) {
+    fs.stat(item, function (err, stat) {
       if (err) return next()
       if (stat.isDirectory()) self.push(item)
       return next()
@@ -44,10 +44,10 @@ function filterDirs(argv) {
   })
 }
 
-function execSeries(argv) {
-  return through(function(item, enc, next) {
+function execSeries (argv) {
+  return through(function (item, enc, next) {
     var cwd = process.cwd()
-    var item = item.toString()
+    item = item.toString()
     var opts = {stdio: 'inherit', cwd: cwd}
 
     var args = parse(argv.command)
@@ -60,14 +60,14 @@ function execSeries(argv) {
     }
 
     spawn(cmd, args, opts)
-    .on('error', function(err) {
+    .on('error', function (err) {
       if (argv.bail) return process.exit(1)
       next(err)
       next = noop
     })
-    .on('exit', function(code) {
-      if(argv['exit'] && code !== 0) {
-        return process.exit(code);
+    .on('exit', function (code) {
+      if (argv['exit'] && code !== 0) {
+        return process.exit(code)
       }
       next()
       next = noop
@@ -75,4 +75,4 @@ function execSeries(argv) {
   })
 }
 
-function noop() {}
+function noop () {}

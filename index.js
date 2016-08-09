@@ -1,10 +1,10 @@
-"use strict"
+'use strict'
 
 var cp = require('child_process')
 var spawn = cp.spawn
 var exec = cp.exec
 
-module.exports = function() {
+module.exports = function () {
   if (arguments.length >= 3) return bulkExec.apply(this, arguments)
   return bulkSpawn.apply(this, arguments)
 }
@@ -13,7 +13,7 @@ module.exports.exec = bulkExec
 module.exports.spawn = bulkSpawn
 module.exports.cmd = require.resolve('./cli')
 
-function bulkExec(dirs, cmd, opts, fn) {
+function bulkExec (dirs, cmd, opts, fn) {
   // opts is optional
   if (arguments.length === 3) {
     fn = opts
@@ -22,12 +22,12 @@ function bulkExec(dirs, cmd, opts, fn) {
   }
   if (!cmd) throw new Error('command required: ' + cmd)
   opts = opts || {}
-  var execCmd = "echo " + dirs.join(' ') + ' | ' + require.resolve('./bulk')
+  var execCmd = 'echo ' + dirs.join(' ') + ' | ' + require.resolve('./bulk')
   if ('onlyDirs' in opts && !opts.onlyDirs) execCmd += ' --no-only-dirs'
   return exec(execCmd + ' -c ' + cmd, opts, fn)
 }
 
-function bulkSpawn(cmd, opts) {
+function bulkSpawn (cmd, opts) {
   if (!cmd) throw new Error('command required: ' + cmd)
   // opts is optional
   opts = opts || {}

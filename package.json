@@ -8,9 +8,9 @@
     "bulk": "cli.js"
   },
   "scripts": {
-    "test": "node test | tap-spec"
+    "test": "node test | tap-spec && standard"
   },
-  "author": "Hugh Kennedy <hughskennedy@gmail.com> (http://hughsk.io/)",
+  "author": "Tim Oxley <secoif@gmail.com>",
   "dependencies": {
     "minimist": "^1.2.0",
     "shell-quote": "^1.6.1",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "bl": "^1.1.2",
+    "standard": "^7.1.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.0"
   },
@@ -38,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/timoxley/bulk.git"
+    "url": "git+https://github.com/timoxley/bulk.git"
   },
   "bugs": {
     "url": "https://github.com/timoxley/bulk/issues"
