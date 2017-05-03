@@ -1,6 +1,6 @@
 {
   "name": "bulk",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Run a command from every installed npm package under a certain directory",
   "main": "index.js",
   "license": "MIT",
@@ -39,10 +39,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timoxley/bulk.git"
+    "url": "git+https://github.com/zurgul/bulk.git"
   },
   "bugs": {
-    "url": "https://github.com/timoxley/bulk/issues"
+    "url": "https://github.com/zurgul/bulk/issues"
   },
-  "homepage": "https://github.com/timoxley/bulk"
+  "homepage": "https://github.com/zurgul/bulk"
 }
